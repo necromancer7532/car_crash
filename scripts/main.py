@@ -11,7 +11,7 @@ logger = log4jLogger.LogManager.getLogger(__name__)
 logger.setLevel(log4jLogger.Level.INFO)
 
 file_read_obj = FileRead(spark)
-df_file = file_read_obj.read_data_from_file("../input_files/Primary_Person_use.csv","csv")
+df_file = file_read_obj.read_data_from_file("./input_files/Primary_Person_use.csv","csv")
 
 accident_count_obj = AccidentCount(spark)
 
