@@ -12,6 +12,7 @@ class AccidentCount:
 
     def count_accidents(self, person_gender, person_status, df):
         df = df.where((col("PRSN_INJRY_SEV_ID") == person_status) & (col("PRSN_GNDR_ID") == person_gender))
+        df.select("CRASH_ID").distinct()
         return df.count()
 
 
