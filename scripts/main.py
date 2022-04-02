@@ -18,5 +18,7 @@ accident_count_obj = AccidentCount(spark)
 count_accident = accident_count_obj.count_accidents("MALE", "KILLED", df_file)
 
 print(count_accident)
+logger.info("Count of males who died in an accident is")
+logger.info(count_accident)
 
 
