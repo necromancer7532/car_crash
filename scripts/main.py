@@ -4,7 +4,7 @@ import datetime
 from file_read_util import FileRead
 from accident_count import AccidentCount
 
-spark = SparkSession.builder.getOrCreate()
+spark = SparkSession.builder.master("local").appName("car_crash").getOrCreate()
 
 log4jLogger = spark._jvm.org.apache.log4j
 logger = log4jLogger.LogManager.getLogger(__name__)
