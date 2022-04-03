@@ -26,7 +26,7 @@ config_data = config_data["questions"]
 config_for_question = config_data[0]
 file_read_obj = FileRead(spark)
 
-df_file = file_read_obj.read_data_from_file(file_path, config_for_question["file_to_use"], "csv")
+df_file = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
 
 accident_count_obj = AccidentCount(spark)
 
