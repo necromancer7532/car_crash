@@ -6,6 +6,7 @@ from pyspark.sql import SparkSession
 import datetime
 from file_read_util import FileRead
 from accident_count import AccidentCount
+from vehicle_booked import VehicleBooked
 
 spark = SparkSession.builder.master("local").appName("car_crash").getOrCreate()
 
@@ -20,14 +21,15 @@ output_path = '\\'.join(code_path.split('\\')[:-2]) + '\\output_files'
 if len(sys.argv) < 3:
     logger.info("No configs passed using default config")
     config_file = '\\'.join(code_path.split('\\')[:-2]) + '\\configs\\config.json'
+    question_no = sys.argv[1]
 else:
     config_file = sys.argv[1]
+    question_no = sys.argv[2]
 f = open(config_file)
 config_data = json.load(f)
 config_data = config_data["questions"]
 ################################################# Analysis 1 #################################################
-if sys.argv[1] == '1':
-    print("question 1 solution in progress")
+if question_no == '1':
     config_for_question = config_data[0]
     file_read_obj = FileRead(spark)
 
@@ -39,8 +41,13 @@ if sys.argv[1] == '1':
 
     logger.info("Analysis 1 : Number of accidents where a male died : {}".format(count_accident))
 ################################################# Analysis 2 #################################################
-elif sys.argv[1] == '2':
+elif question_no == '2':
     config_for_question = config_data[1]
     file_read_obj = FileRead(spark)
 
     df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
+
+    vehicle_booked_obj = VehicleBooked(spark)
+
+    count_vehicles = vehicle_booked_obj.booked_vehicle("MOTORCYCLE", df_dict)
+    logger.info("Analysis 2 : Number of 2 wheelers booked ofr crashes : {}".format(count_vehicles))
