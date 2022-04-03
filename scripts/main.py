@@ -16,7 +16,7 @@ logger.setLevel(log4jLogger.Level.INFO)
 if len(sys.argv) < 2:
     logger.warning("No configs passed using default config")
 code_path = os.path.realpath(__file__)
-file_path = '\\'.join(code_path.split('\\')[:-1]) + '\\input_files'
+file_path = '\\'.join(code_path.split('\\')[:-2]) + '\\input_files'
 config_file = sys.argv[1]
 f = open(config_file)
 config_data = json.load(f)
