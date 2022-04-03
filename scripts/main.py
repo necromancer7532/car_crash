@@ -7,6 +7,7 @@ import datetime
 from file_read_util import FileRead
 from accident_count import AccidentCount
 from vehicle_booked import VehicleBooked
+from person_involved import PersonInvolved
 
 spark = SparkSession.builder.master("local").appName("car_crash").getOrCreate()
 
@@ -79,5 +80,17 @@ elif question_no == '4':
 
     logger.info("Analysis 4 : Top 5th to 15th VEH_MAKE_IDs that contribute to the largest number of injuries "
                 "including death :")
+    df_result.show()
+    spark.stop()
+################################################# Analysis 5 #################################################
+elif question_no == '5':
+    config_for_question = config_data[4]
+    file_read_obj = FileRead(spark)
+
+    df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
+
+    person_involved_obj = PersonInvolved(spark)
+
+    df_result = person_involved_obj.ethnicity_count_bodystyle(df_dict)
     df_result.show()
     spark.stop()

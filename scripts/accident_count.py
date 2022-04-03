@@ -7,8 +7,9 @@ from pyspark.sql.functions import col
 
 spark = SparkSession.builder.getOrCreate()
 
+
 class AccidentCount:
-    def __init__(self, output_path, spark_context = None):
+    def __init__(self, output_path, spark_context=None):
         self.spark_context = spark_context
         self.output_path = output_path
 
@@ -24,11 +25,3 @@ class AccidentCount:
         df = df.groupBy("DRVR_LIC_STATE_ID").count()
         df = df.agg({'count': 'max', 'DRVR_LIC_STATE_ID': 'max'}).collect()[0]
         return df['max(DRVR_LIC_STATE_ID)']
-
-
-
-
-
-
-
-
