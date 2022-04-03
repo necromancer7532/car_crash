@@ -35,8 +35,7 @@ class AccidentDetail:
         df = df.where(col('DAMAGED_PROPERTY').contains("NO DAMAGE"))
         df.show()
         df = df.where((col('VEH_DMAG_SCL_1_ID') == "DAMAGED 4") | (col('VEH_DMAG_SCL_1_ID') == "DAMAGED 5") | (
-                    col('VEH_DMAG_SCL_1_ID') == "DAMAGED 6") | (col('VEH_DMAG_SCL_1_ID') == "DAMAGED 7 HIGHEST"))
-        df = df.where((col('VEH_DMAG_SCL_2_ID') == "DAMAGED 4") | (col('VEH_DMAG_SCL_2_ID') == "DAMAGED 5") | (
+                    col('VEH_DMAG_SCL_1_ID') == "DAMAGED 6") | (col('VEH_DMAG_SCL_1_ID') == "DAMAGED 7 HIGHEST") | (col('VEH_DMAG_SCL_2_ID') == "DAMAGED 4") | (col('VEH_DMAG_SCL_2_ID') == "DAMAGED 5") | (
                 col('VEH_DMAG_SCL_2_ID') == "DAMAGED 6") | (col('VEH_DMAG_SCL_2_ID') == "DAMAGED 7 HIGHEST"))
         df = df.where((col('FIN_RESP_TYPE_ID') != "NA"))
         df = df.select('CRASH_ID').distinct()
