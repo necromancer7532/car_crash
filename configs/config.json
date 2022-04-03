@@ -1,8 +1,10 @@
-{
-  "Analysis_1" : [
-    {
-      "file_to_use" : "/Primary_Person_use.csv"
 
+{
+  "questions" :
+  [
+    {
+      "question" : 1,
+      "file_used" : ["Primary_Person_use"]
     }
   ]
 }

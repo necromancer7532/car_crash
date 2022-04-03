@@ -1,5 +1,6 @@
 import sys
 import json
+import os
 from pyspark import SparkContext
 from pyspark.sql import SparkSession
 import datetime
@@ -13,15 +14,19 @@ logger = log4jLogger.LogManager.getLogger(__name__)
 logger.setLevel(log4jLogger.Level.INFO)
 
 if len(sys.argv) < 2:
-    logger.error("PLEASE PASS THE FILE LOCATION AND CONFIG FILE AS ARGUMENT")
+    logger.error("PLEASE PASS THE CONFIG FILE AS ARGUMENT")
     exit(0)
-file_path = sys.argv[1]
-config_file = sys.argv[2]
+code_path = os.path.realpath(__file__)
+file_path = '/'.join(code_path.split('/')[:-1]) + '/input_files'
+config_file = sys.argv[1]
 f = open(config_file)
 config_data = json.load(f)
+config_data = config_data["questions"]
 ################################################# Analysis 1 #################################################
+config_for_question = config_data[0]
 file_read_obj = FileRead(spark)
-df_file = file_read_obj.read_data_from_file(file_path+config_data["Analysis_1"]["file_to_use"], "csv")
+
+df_file = file_read_obj.read_data_from_file(file_path, config_for_question["file_to_use"], "csv")
 
 accident_count_obj = AccidentCount(spark)
 
