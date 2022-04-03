@@ -17,19 +17,26 @@ if len(sys.argv) < 2:
     logger.warning("No configs passed using default config")
 code_path = os.path.realpath(__file__)
 file_path = '\\'.join(code_path.split('\\')[:-2]) + '\\input_files'
+output_path = '\\'.join(code_path.split('\\')[:-2]) + '\\output_files'
 config_file = sys.argv[1]
 f = open(config_file)
 config_data = json.load(f)
 config_data = config_data["questions"]
 ################################################# Analysis 1 #################################################
-config_for_question = config_data[0]
-file_read_obj = FileRead(spark)
+if sys.argv[2] == 1:
+    config_for_question = config_data[0]
+    file_read_obj = FileRead(spark)
 
-df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
+    df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
 
-accident_count_obj = AccidentCount(spark)
+    accident_count_obj = AccidentCount(output_path, spark)
 
-count_accident = accident_count_obj.count_accidents("MALE", "KILLED", df_dict)
+    count_accident = accident_count_obj.count_accidents("MALE", "KILLED", df_dict)
 
-logger.info("Analysis 1 : Number of accidents where a male died : {}".format(count_accident))
+    logger.info("Analysis 1 : Number of accidents where a male died : {}".format(count_accident))
+################################################# Analysis 2 #################################################
+elif sys.argv[2] == 2:
+    config_for_question = config_data[1]
+    file_read_obj = FileRead(spark)
 
+    df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")

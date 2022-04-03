@@ -5,6 +5,10 @@
     {
       "question" : 1,
       "file_used" : ["Primary_Person_use"]
+    },
+    {
+      "question" : 2,
+      "file_used" : ["Charges_use", "Unit_use"]
     }
   ]
 }
