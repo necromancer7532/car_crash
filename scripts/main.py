@@ -25,11 +25,11 @@ config_data = config_data["questions"]
 config_for_question = config_data[0]
 file_read_obj = FileRead(spark)
 
-df_file = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
+df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
 
 accident_count_obj = AccidentCount(spark)
 
-count_accident = accident_count_obj.count_accidents("MALE", "KILLED", df_file)
+count_accident = accident_count_obj.count_accidents("MALE", "KILLED", df_dict)
 
 logger.info("Analysis 1 : Number of accidents where a male died : {}".format(count_accident))
 

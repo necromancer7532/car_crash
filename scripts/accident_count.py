@@ -10,7 +10,8 @@ class AccidentCount:
     def __init__(self, spark_context = None):
         self.spark_context = spark_context
 
-    def count_accidents(self, person_gender, person_status, df):
+    def count_accidents(self, person_gender, person_status, df_dict):
+        df = df_dict["Primary_Person_use"]
         df = df.where((col("PRSN_INJRY_SEV_ID") == person_status) & (col("PRSN_GNDR_ID") == person_gender))
         df = df.select("CRASH_ID").distinct()
         return df.count()
