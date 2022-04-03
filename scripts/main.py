@@ -26,7 +26,7 @@ f = open(config_file)
 config_data = json.load(f)
 config_data = config_data["questions"]
 ################################################# Analysis 1 #################################################
-if sys.argv[1] == 1:
+if sys.argv[1] == '1':
     print("question 1 solution in progress")
     config_for_question = config_data[0]
     file_read_obj = FileRead(spark)
@@ -39,7 +39,7 @@ if sys.argv[1] == 1:
 
     logger.info("Analysis 1 : Number of accidents where a male died : {}".format(count_accident))
 ################################################# Analysis 2 #################################################
-elif sys.argv[1] == 2:
+elif sys.argv[1] == '2':
     config_for_question = config_data[1]
     file_read_obj = FileRead(spark)
 
