@@ -50,4 +50,16 @@ elif question_no == '2':
     vehicle_booked_obj = VehicleBooked(spark)
 
     count_vehicles = vehicle_booked_obj.booked_vehicle("MOTORCYCLE", df_dict)
-    logger.info("Analysis 2 : Number of 2 wheelers booked ofr crashes : {}".format(count_vehicles))
+    logger.info("Analysis 2 : Number of 2 wheelers booked for crashes : {}".format(count_vehicles))
+################################################# Analysis 3 #################################################
+elif question_no == '3':
+    config_for_question = config_data[2]
+    file_read_obj = FileRead(spark)
+
+    df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
+
+    accident_count_obj = AccidentCount(output_path, spark)
+
+    count_accident = accident_count_obj.count_accidents_state("FEMALE", df_dict)
+
+    logger.info("Analysis 3 : State with max number of accident involving females : {}".format(count_accident))
