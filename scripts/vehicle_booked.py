@@ -1,8 +1,8 @@
 from pyspark import SparkContext, Row
-from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession, Window
 import datetime
 
-from pyspark.sql.functions import col
+from pyspark.sql.functions import col, lit, row_number
 
 spark = SparkSession.builder.getOrCreate()
 
@@ -24,6 +24,9 @@ class VehicleBooked:
         df_person = df_dict["Primary_Person_use"]
         df = df_unit.join(df_person, 'CRASH_ID', 'inner').select('PRSN_INJRY_SEV_ID', 'VEH_MAKE_ID')
         df = df.where((col('PRSN_INJRY_SEV_ID')=="INCAPACITATING INJURY") | (col('PRSN_INJRY_SEV_ID')=="KILLED") | (col('PRSN_INJRY_SEV_ID')=="NON-INCAPACITATING INJURY") | (col('PRSN_INJRY_SEV_ID')=="POSSIBLE INJURY"))
-        df = df.groupBy("VEH_MAKE_ID").count()
+        df = df.groupBy("VEH_MAKE_ID").count().orderBy('count', ascending=False)
+        w = Window().partitionBy(lit('a')).orderBy(lit('a'))
+        df = df.withColumn("rank", row_number().over(w))
+        df = df.filter(col('rank').between(5,15))
         df.show()
         return df
