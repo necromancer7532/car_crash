@@ -19,6 +19,6 @@ class PersonInvolved:
         df = df_unit.join(df_person, 'CRASH_ID', 'inner').select('VEH_BODY_STYL_ID', 'PRSN_ETHNICITY_ID')
         df = df.where((col('VEH_BODY_STYL_ID') != "UNKNOWN") & (col('VEH_BODY_STYL_ID') != "NA") & (col('PRSN_ETHNICITY_ID') != "NA") & (col('PRSN_ETHNICITY_ID') != "UNKNOWN"))
         df = df.groupBy('VEH_BODY_STYL_ID', 'PRSN_ETHNICITY_ID').count().orderBy('VEH_BODY_STYL_ID', 'count', ascending=False)
-        w = Window().partitionBy("VEH_BODY_STYL_ID", "PRSN_ETHNICITY_ID").orderBy(col('count').desc())
+        w = Window().partitionBy("VEH_BODY_STYL_ID").orderBy(col('count').desc())
         df = df.withColumn("rank", row_number().over(w))
         return df
