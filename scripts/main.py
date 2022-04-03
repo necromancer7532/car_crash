@@ -13,17 +13,20 @@ log4jLogger = spark._jvm.org.apache.log4j
 logger = log4jLogger.LogManager.getLogger(__name__)
 logger.setLevel(log4jLogger.Level.INFO)
 
-if len(sys.argv) < 2:
-    logger.warning("No configs passed using default config")
+
 code_path = os.path.realpath(__file__)
 file_path = '\\'.join(code_path.split('\\')[:-2]) + '\\input_files'
 output_path = '\\'.join(code_path.split('\\')[:-2]) + '\\output_files'
-config_file = sys.argv[1]
+if len(sys.argv) < 2:
+    logger.warning("No configs passed using default config")
+    config_file = '\\'.join(code_path.split('\\')[:-2]) + '\\configs\\config.json'
+else:
+    config_file = sys.argv[1]
 f = open(config_file)
 config_data = json.load(f)
 config_data = config_data["questions"]
 ################################################# Analysis 1 #################################################
-if sys.argv[2] == 1:
+if sys.argv[1] == 1:
     print("question 1 solution in progress")
     config_for_question = config_data[0]
     file_read_obj = FileRead(spark)
@@ -36,7 +39,7 @@ if sys.argv[2] == 1:
 
     logger.info("Analysis 1 : Number of accidents where a male died : {}".format(count_accident))
 ################################################# Analysis 2 #################################################
-elif sys.argv[2] == 2:
+elif sys.argv[1] == 2:
     config_for_question = config_data[1]
     file_read_obj = FileRead(spark)
 
