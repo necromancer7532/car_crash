@@ -1,7 +1,7 @@
 from pyspark import SparkContext, Row
 from pyspark.sql import SparkSession
 import datetime
-from pyspark.sql.functions import max, sum
+from pyspark.sql.functions import max, sum, first
 
 from pyspark.sql.functions import col
 
@@ -22,8 +22,8 @@ class AccidentCount:
         df = df_dict["Primary_Person_use"]
         df = df.where(col("PRSN_GNDR_ID") == person_gender)
         df = df.groupBy("DRVR_LIC_STATE_ID").count()
-        count_states = df.agg({'count':'max'}).collect()[0]
-        return count_states['max(count)']
+        count_states = df.agg({'count':'max'}, first('DRVR_LIC_STATE_ID') as "state").collect()[0]
+        return count_states['state']
 
 
 
