@@ -9,5 +9,5 @@ class FileRead:
             print(file_name)
             df_read = self.spark_context.read.load(file_name, file_type, header="true", inferSchema="true",
                                                    multiLine="true")
-            dataframes_dict[file_name] = df_read
+            dataframes_dict[item] = df_read
         return dataframes_dict
