@@ -20,8 +20,8 @@ class AccidentCount:
 
     def count_accidents_state(self, person_gender, df_dict):
         df = df_dict["Primary_Person_use"]
-        df = df.groupBy("DRVR_LIC_STATE_ID").count()
         df = df.where(col("PRSN_GNDR_ID") == person_gender)
+        df = df.groupBy("DRVR_LIC_STATE_ID").count()
         count_states = df.agg({'count':'max'}).collect()[0]
         return count_states['max(count)']
 
