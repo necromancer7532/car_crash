@@ -16,7 +16,7 @@ class AccidentCount:
         df = df.where((col("PRSN_INJRY_SEV_ID") == person_status) & (col("PRSN_GNDR_ID") == person_gender))
         df = df.select("CRASH_ID").distinct()
         count = df.count()
-        df_write = self.spark_context.createDataFrame([Row(count)], schema='No_of_accidents_male_deaths double')
+        df_write = self.spark_context.createDataFrame([Row(count)], schema='No_of_accidents_male_deaths int')
         df_write.coalesce(1).write.option("header", "true").csv(self.output_path + "\\analysis_1.csv")
 
 
