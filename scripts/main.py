@@ -78,5 +78,5 @@ elif question_no == '4':
     df_result = vehicle_booked_obj.vehicle_model_count(df_dict)
 
     logger.info("Analysis 3 : Top 5th to 15th VEH_MAKE_IDs that contribute to the largest number of injuries "
-                "including death : {}".format(df_result))
+                "including death : {}".format(df_result.show()))
     spark.stop()

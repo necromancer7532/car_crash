@@ -27,6 +27,5 @@ class VehicleBooked:
         df = df.groupBy("VEH_MAKE_ID").count().orderBy('count', ascending=False)
         w = Window().partitionBy(lit('a')).orderBy(lit('a'))
         df = df.withColumn("rank", row_number().over(w))
-        df = df.filter(col('rank').between(5,15))
-        df.show()
+        df = df.filter(col('rank').between(5,15)).drop('rank')
         return df
