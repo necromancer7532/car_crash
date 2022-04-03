@@ -33,7 +33,6 @@ class AccidentDetail:
         df = df_unit.join(df_damages, 'CRASH_ID', 'left').select(
             'VEH_DMAG_SCL_1_ID', 'VEH_DMAG_SCL_2_ID', 'FIN_RESP_TYPE_ID', 'CRASH_ID', 'DAMAGED_PROPERTY')
         df = df.where(col('DAMAGED_PROPERTY').contains("NO DAMAGE"))
-        df.show()
         df = df.where((col('VEH_DMAG_SCL_1_ID') == "DAMAGED 4") | (col('VEH_DMAG_SCL_1_ID') == "DAMAGED 5") | (
                     col('VEH_DMAG_SCL_1_ID') == "DAMAGED 6") | (col('VEH_DMAG_SCL_1_ID') == "DAMAGED 7 HIGHEST") | (col('VEH_DMAG_SCL_2_ID') == "DAMAGED 4") | (col('VEH_DMAG_SCL_2_ID') == "DAMAGED 5") | (
                 col('VEH_DMAG_SCL_2_ID') == "DAMAGED 6") | (col('VEH_DMAG_SCL_2_ID') == "DAMAGED 7 HIGHEST"))

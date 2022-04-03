@@ -116,9 +116,18 @@ elif question_no == '7':
     count_crashes = accident_count_obj.count_damages(df_dict)
     logger.info("Count of Distinct Crash IDs where No Damaged Property was observed and Damage Level is above 4 and car avails Insurance : {}".format(count_crashes))
 
-################################################# Analysis 7 #################################################
+################################################# Analysis 8 #################################################
 elif question_no == '8':
     config_for_question = config_data[7]
     file_read_obj = FileRead(spark)
 
     df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
+
+    vehicle_booked_obj = VehicleBooked(spark)
+    df_result = vehicle_booked_obj.vehicle_make(df_dict)
+    logger.info("the Top 5 Vehicle Makes where drivers are charged with speeding related offences, has licensed "
+                "Drivers, uses top 10 used vehicle colours and has car licensed with the Top 25 states with highest "
+                "number of offences")
+    df_result.show()
+
+###################################################################################################################
