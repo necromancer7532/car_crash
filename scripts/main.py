@@ -106,6 +106,7 @@ elif question_no == '6':
     df_result = person_involved_obj.zip_code_crashes(df_dict)
     logger.info("Top 5 Zip Codes with highest number crashes with alcohols as the contributing factor to a crash")
     df_result.show()
+    spark.stop()
 ################################################# Analysis 7 #################################################
 elif question_no == '7':
     config_for_question = config_data[6]
@@ -115,7 +116,7 @@ elif question_no == '7':
     accident_count_obj = AccidentDetail(output_path, spark)
     count_crashes = accident_count_obj.count_damages(df_dict)
     logger.info("Count of Distinct Crash IDs where No Damaged Property was observed and Damage Level is above 4 and car avails Insurance : {}".format(count_crashes))
-
+    spark.stop()
 ################################################# Analysis 8 #################################################
 elif question_no == '8':
     config_for_question = config_data[7]
@@ -129,5 +130,9 @@ elif question_no == '8':
                 "Drivers, uses top 10 used vehicle colours and has car licensed with the Top 25 states with highest "
                 "number of offences")
     df_result.show()
-
+    spark.stop()
 ###################################################################################################################
+
+else:
+    print("invalid Question number provided please provide the right question number")
+    spark.stop()

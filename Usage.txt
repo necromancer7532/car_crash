@@ -1,0 +1,7 @@
+-----------------------------------------HOW TO USE ----------------------------------------------
+
+run python main.py <analysis number> from cmd
+
+<analysis number> is the question number for which the code needs to run
+
+you can also pass optional config if needed but by default the config in the configs folder will be used
