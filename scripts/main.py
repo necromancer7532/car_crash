@@ -5,7 +5,7 @@ from pyspark import SparkContext
 from pyspark.sql import SparkSession
 import datetime
 from file_read_util import FileRead
-from accident_count import AccidentCount
+from accident_detail import AccidentDetail
 from vehicle_booked import VehicleBooked
 from person_involved import PersonInvolved
 
@@ -36,7 +36,7 @@ if question_no == '1':
 
     df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
 
-    accident_count_obj = AccidentCount(output_path, spark)
+    accident_count_obj = AccidentDetail(output_path, spark)
 
     count_accident = accident_count_obj.count_accidents("MALE", "KILLED", df_dict)
 
@@ -61,7 +61,7 @@ elif question_no == '3':
 
     df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
 
-    accident_count_obj = AccidentCount(output_path, spark)
+    accident_count_obj = AccidentDetail(output_path, spark)
 
     count_accident = accident_count_obj.count_accidents_state("FEMALE", df_dict)
 
@@ -106,3 +106,19 @@ elif question_no == '6':
     df_result = person_involved_obj.zip_code_crashes(df_dict)
     logger.info("Top 5 Zip Codes with highest number crashes with alcohols as the contributing factor to a crash")
     df_result.show()
+################################################# Analysis 7 #################################################
+elif question_no == '7':
+    config_for_question = config_data[6]
+    file_read_obj = FileRead(spark)
+
+    df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
+    accident_count_obj = AccidentDetail(output_path, spark)
+    count_crashes = accident_count_obj.count_damages(df_dict)
+    logger.info("Count of Distinct Crash IDs where No Damaged Property was observed and Damage Level is above 4 and car avails Insurance : {}".format(count_crashes))
+
+################################################# Analysis 7 #################################################
+elif question_no == '8':
+    config_for_question = config_data[7]
+    file_read_obj = FileRead(spark)
+
+    df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")

@@ -8,7 +8,7 @@ from pyspark.sql.functions import col
 spark = SparkSession.builder.getOrCreate()
 
 
-class AccidentCount:
+class AccidentDetail:
     def __init__(self, output_path, spark_context=None):
         self.spark_context = spark_context
         self.output_path = output_path
@@ -25,3 +25,17 @@ class AccidentCount:
         df = df.groupBy("DRVR_LIC_STATE_ID").count()
         df = df.agg({'count': 'max', 'DRVR_LIC_STATE_ID': 'max'}).collect()[0]
         return df['max(DRVR_LIC_STATE_ID)']
+
+    def count_damages(self, df_dict):
+        df_damages = df_dict["Damages_use"]
+        df_unit = df_dict["Units_use"]
+
+        df = df_unit.join(df_damages, 'CRASH_ID', 'left').where(col('DAMAGED_PROPERTY') is None).select(
+            'VEH_DMAG_SCL_1_ID', 'VEH_DMAG_SCL_2_ID', 'FIN_RESP_TYPE_ID', 'CRASH_ID')
+        df = df.where((col('VEH_DMAG_SCL_1_ID') == "DAMAGED 4") | (col('VEH_DMAG_SCL_1_ID') == "DAMAGED 5") | (
+                    col('VEH_DMAG_SCL_1_ID') == "DAMAGED 6") | (col('VEH_DMAG_SCL_1_ID') == "DAMAGED 7 HIGHEST"))
+        df = df.where((col('VEH_DMAG_SCL_2_ID') == "DAMAGED 4") | (col('VEH_DMAG_SCL_2_ID') == "DAMAGED 5") | (
+                col('VEH_DMAG_SCL_2_ID') == "DAMAGED 6") | (col('VEH_DMAG_SCL_2_ID') == "DAMAGED 7 HIGHEST"))
+        df = df.where((col('FIN_RESP_TYPE_ID') != "NA"))
+        df = df.select('CRASH_ID').distinct()
+        return df.count()
