@@ -25,6 +25,5 @@ class VehicleBooked:
         df = df_unit.join(df_person, 'CRASH_ID', 'inner').select('PRSN_INJRY_SEV_ID', 'VEH_MAKE_ID')
         df = df.where((col('PRSN_INJRY_SEV_ID')=="INCAPACITATING INJURY") | (col('PRSN_INJRY_SEV_ID')=="KILLED") | (col('PRSN_INJRY_SEV_ID')=="NON-INCAPACITATING INJURY") | (col('PRSN_INJRY_SEV_ID')=="POSSIBLE INJURY"))
         df = df.groupBy("VEH_MAKE_ID").count()
-        df = df.agg({'count': 'max', 'VEH_MAKE_ID': 'max'}).collect()[5:15]
-        print(df)
+        df.show()
         return df
