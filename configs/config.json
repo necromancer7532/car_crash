@@ -21,6 +21,10 @@
     {
       "question" : 5,
       "file_used" : ["Units_use", "Primary_Person_use"]
+    },
+    {
+      "question" : 6,
+      "file_used" : ["Units_use", "Primary_Person_use"]
     }
   ]
 }

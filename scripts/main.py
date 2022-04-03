@@ -92,5 +92,17 @@ elif question_no == '5':
     person_involved_obj = PersonInvolved(spark)
 
     df_result = person_involved_obj.ethnicity_count_bodystyle(df_dict)
+    logger.info("the top ethnic user group of each unique body style : ")
     df_result.show()
     spark.stop()
+################################################# Analysis 6 #################################################
+elif question_no == '6':
+    config_for_question = config_data[5]
+    file_read_obj = FileRead(spark)
+
+    df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
+    person_involved_obj = PersonInvolved(spark)
+
+    df_result = person_involved_obj.zip_code_crashes(df_dict)
+    logger.info("Top 5 Zip Codes with highest number crashes with alcohols as the contributing factor to a crash")
+    df_result.show()
