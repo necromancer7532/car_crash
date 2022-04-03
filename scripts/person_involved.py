@@ -27,6 +27,7 @@ class PersonInvolved:
         df_unit = df_dict["Units_use"]
         df_person = df_dict["Primary_Person_use"]
         df = df_unit.join(df_person, 'CRASH_ID', 'inner').select('VEH_BODY_STYL_ID', 'CONTRIB_FACTR_1_ID', 'DRVR_ZIP')
+        df = df.where((col('DRVR_ZIP') is not None) & (col('DRVR_ZIP') != 'null'))
         df = df.where((col('VEH_BODY_STYL_ID') == "PASSENGER CAR, 4-DOOR") | (col('VEH_BODY_STYL_ID') == "PASSENGER CAR, 2-DOOR") | (col('VEH_BODY_STYL_ID') == "POLICE CAR/TRUCK") )
         df = df.where((col('CONTRIB_FACTR_1_ID') == "UNDER INFLUENCE - ALCOHOL") | (col('CONTRIB_FACTR_1_ID') == "HAD BEEN DRINKING") )
         df = df.groupBy('DRVR_ZIP').count().orderBy(col('count').desc())
