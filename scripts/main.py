@@ -24,6 +24,7 @@ config_data = json.load(f)
 config_data = config_data["questions"]
 ################################################# Analysis 1 #################################################
 if sys.argv[2] == 1:
+    print("question 1 solution in progress")
     config_for_question = config_data[0]
     file_read_obj = FileRead(spark)
 
