@@ -32,7 +32,7 @@
     },
     {
       "question" : 8,
-      "file_used" : ["Units_use", "Damages_use", "Charges_use"]
+      "file_used" : ["Units_use", "Damages_use", "Charges_use", "Primary_Person_use"]
     }
   ]
 }
