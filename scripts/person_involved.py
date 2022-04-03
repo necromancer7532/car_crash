@@ -18,5 +18,5 @@ class PersonInvolved:
 
         df = df_unit.join(df_person, 'CRASH_ID', 'inner').select('VEH_BODY_STYL_ID', 'PRSN_ETHNICITY_ID')
         df = df.where((col('VEH_BODY_STYL_ID') != "UNKNOWN") & (col('VEH_BODY_STYL_ID') != "NA") & (col('PRSN_ETHNICITY_ID') != "NA") & (col('PRSN_ETHNICITY_ID') != "UNKNOWN"))
-        df = df.groupBy('VEH_BODY_STYL_ID', 'PRSN_ETHNICITY_ID').count().orderBy('PRSN_ETHNICITY_ID')
+        df = df.groupBy('VEH_BODY_STYL_ID', 'PRSN_ETHNICITY_ID').count().orderBy('VEH_BODY_STYL_ID')
         return df
