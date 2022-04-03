@@ -13,7 +13,7 @@ class VehicleBooked:
 
     def booked_vehicle(self, vehicle_type, df_dict):
         df_charges = df_dict["Charges_use"]
-        df_unit = df_dict["Unit_use"]
+        df_unit = df_dict["Units_use"]
 
         df = df_unit.join(df_charges, 'CRASH_ID', 'inner').select('CRASH_ID', 'VIN', 'VEH_BODY_STYL_ID')
         df = df.where(col('VEH_BODY_STYL_ID') == vehicle_type)
