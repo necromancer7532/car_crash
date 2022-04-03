@@ -21,4 +21,5 @@ class PersonInvolved:
         df = df.groupBy('VEH_BODY_STYL_ID', 'PRSN_ETHNICITY_ID').count().orderBy('VEH_BODY_STYL_ID', 'count', ascending=False)
         w = Window().partitionBy("VEH_BODY_STYL_ID").orderBy(col('count').desc())
         df = df.withColumn("rank", row_number().over(w))
+        df = df.where(col('rank') == 1).drop('rank')
         return df
