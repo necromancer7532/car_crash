@@ -66,3 +66,17 @@ elif question_no == '3':
 
     logger.info("Analysis 3 : State with max number of accident involving females : {}".format(count_accident))
     spark.stop()
+################################################# Analysis 4 #################################################
+elif question_no == '4':
+    config_for_question = config_data[3]
+    file_read_obj = FileRead(spark)
+
+    df_dict = file_read_obj.read_data_from_file(file_path, config_for_question["file_used"], "csv")
+
+    vehicle_booked_obj = VehicleBooked(spark)
+
+    df_result = vehicle_booked_obj.vehicle_model_count(df_dict)
+
+    logger.info("Analysis 3 : Top 5th to 15th VEH_MAKE_IDs that contribute to the largest number of injuries "
+                "including death : {}".format(df_result)) 
+    spark.stop()
