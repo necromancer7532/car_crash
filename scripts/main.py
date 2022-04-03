@@ -40,6 +40,7 @@ if question_no == '1':
     count_accident = accident_count_obj.count_accidents("MALE", "KILLED", df_dict)
 
     logger.info("Analysis 1 : Number of accidents where a male died : {}".format(count_accident))
+    SparkSession.stop()
 ################################################# Analysis 2 #################################################
 elif question_no == '2':
     config_for_question = config_data[1]
@@ -51,6 +52,7 @@ elif question_no == '2':
 
     count_vehicles = vehicle_booked_obj.booked_vehicle("MOTORCYCLE", df_dict)
     logger.info("Analysis 2 : Number of 2 wheelers booked for crashes : {}".format(count_vehicles))
+    SparkSession.stop()
 ################################################# Analysis 3 #################################################
 elif question_no == '3':
     config_for_question = config_data[2]
@@ -63,3 +65,4 @@ elif question_no == '3':
     count_accident = accident_count_obj.count_accidents_state("FEMALE", df_dict)
 
     logger.info("Analysis 3 : State with max number of accident involving females : {}".format(count_accident))
+    SparkSession.stop()
